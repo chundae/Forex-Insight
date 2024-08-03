@@ -22,11 +22,11 @@ file_path = 'Exchange.csv'
 def set_font():
     font_path = None
     for font in font_manager.findSystemFonts(fontpaths=None, fontext='ttf'):
-        if 'AppleGothic' in font or 'NanumGothic' in font:
+        if 'MalgunGothic' in font or 'NanumGothic' in font:
             font_path = font
             break
     if font_path is None:
-        raise FileNotFoundError("AppleGothic 또는 NanumGothic 폰트를 찾을 수 없습니다.")
+        raise FileNotFoundError("MalgunGothic 또는 NanumGothic 폰트를 찾을 수 없습니다.")
     font = font_manager.FontProperties(fname=font_path).get_name()
     rc('font', family=font)
 
