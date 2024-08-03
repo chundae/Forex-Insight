@@ -20,15 +20,21 @@ frequency = st.sidebar.selectbox('frequency', ['quarterly', 'yearly'])
 file_path = 'Exchange.csv'
 
 def set_font():
-    font_path = None
-    for font in font_manager.findSystemFonts(fontpaths=None, fontext='ttf'):
-        if 'MalgunGothic' in font or 'NanumGothic' in font:
-            font_path = font
-            break
-    if font_path is None:
-        raise FileNotFoundError("MalgunGothic 또는 NanumGothic 폰트를 찾을 수 없습니다.")
-    font = font_manager.FontProperties(fname=font_path).get_name()
-    rc('font', family=font)
+    # 사용하려는 폰트 목록
+    preferred_fonts = ['Malgun Gothic', 'NanumGothic', 'Arial Unicode MS']
+
+    # 시스템에 설치된 폰트 목록
+    installed_fonts = set(f.name for f in font_manager.fontManager.ttflist)
+
+    # 설치된 폰트 중 사용하려는 폰트가 있는지 확인
+    for font in preferred_fonts:
+        if font in installed_fonts:
+            rc('font', family=font)
+            print(f"{font} 폰트가 설정되었습니다.")
+            return
+
+    # 사용하려는 폰트가 모두 없으면 예외 발생
+    raise FileNotFoundError("사용 가능한 폰트를 찾을 수 없습니다. 'Malgun Gothic' 또는 'NanumGothic'이 설치되어 있는지 확인하세요.")
 
 @st.cache_data
 def data_load():
